@@ -234,5 +234,10 @@ if __name__ == "__main__":
                 schedule,
                 payroll)
     
-    print(project.__str__())    
+    print(project.__str__())
+
+    print(project == project)
+    print(project == project)
+    print(project == project)
+    print(project == project)
 
