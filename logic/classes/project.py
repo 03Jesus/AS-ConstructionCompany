@@ -236,8 +236,3 @@ if __name__ == "__main__":
     
     print(project.__str__())
 
-    print(project == project)
-    print(project == project)
-    print(project == project)
-    print(project == project)
-
