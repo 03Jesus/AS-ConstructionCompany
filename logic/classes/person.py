@@ -132,7 +132,8 @@ class Person (object):
         :return: the string representation of the Person
         :rtype: str
         """
-        return f"Person(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', mail='{self.mail}')"
+        return f"Person(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', " \
+               f"mail='{self.mail}')"
 
     def __eq__(self, other: object) -> bool:
         """

@@ -1,9 +1,10 @@
 import json
-from gadget import Gadget
+from logic.classes.gadget import Gadget
+
 
 class Equipment (object):
     """
-    A class that represents a Equipment (a list of gadgets)
+    A class that represents an Equipment (a list of gadgets)
     """
 
     def __init__(self,
@@ -39,7 +40,7 @@ class Equipment (object):
 
     def add_gadget(self, gadget: Gadget) -> None:
         """
-        Adds an gadget to the list of gadgets
+        Adds a gadget to the list of gadgets
         :param gadget: the gadget to add
         :type gadget: Gadget
         :return: None
@@ -48,7 +49,7 @@ class Equipment (object):
 
     def remove_gadget(self, gadget: Gadget) -> None:
         """
-        Removes an gadget from the list of gadgets
+        Removes a gadget from the list of gadgets
         :param gadget: the gadget to remove
         :type gadget: Gadget
         :return: None
@@ -57,8 +58,8 @@ class Equipment (object):
 
     def __str__(self) -> str:
         """
-        Returns the string representation of a Equipment
-        :return: the string representation of a Equipment
+        Returns the string representation of an Equipment
+        :return: the string representation of an Equipment
         :rtype: str
         """
         gadgets_str = ""
@@ -77,7 +78,8 @@ class Equipment (object):
         if isinstance(other, Equipment):
             return self.gadgets == other.gadgets
         return False
-    
+
+
 if __name__ == '__main__':
     gadget1 = Gadget(1, 'gadget1', 'type1', 'state1')
     gadget2 = Gadget(2, 'gadget2', 'type2', 'state2')

@@ -1,5 +1,5 @@
 import json
-from person import Person
+from logic.classes.person import Person
 
 
 class Client (Person):
@@ -34,7 +34,8 @@ class Client (Person):
         :return: the string representation of a Client
         :rtype: str
         """
-        return f"Client(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', mail='{self.mail}')"
+        return f"Client(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', " \
+               f"mail='{self.mail}')"
 
     def __eq__(self, other: object) -> bool:
         """

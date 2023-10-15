@@ -1,5 +1,7 @@
 import json
 from datetime import date
+
+
 class Schedule (object):
     """
     A class that represents a Schedule
@@ -124,7 +126,8 @@ class Schedule (object):
                self.__start_date == other.start_date and \
                self.__finish_date == other.finish_date and \
                self.__state == other.state
-    
+
+
 if __name__ == "__main__":
     schedule = Schedule(1, date.today(), date.today(), 'state')
     print(schedule)
@@ -135,3 +138,4 @@ if __name__ == "__main__":
     print(schedule == Schedule(1, date.today(), date.today(), 'state'))
     print(schedule == Schedule(2, date.today(), date.today(), 'state'))
     print(schedule == Schedule(1, date.today(), date.today(), 'state2'))
+

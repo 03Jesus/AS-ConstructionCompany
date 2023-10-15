@@ -1,5 +1,5 @@
 import json
-from person import Person
+from logic.classes.person import Person
 
 
 class Administrator (Person):

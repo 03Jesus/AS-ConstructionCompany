@@ -1,5 +1,6 @@
 import json
-from person import Person
+from logic.classes.person import Person
+
 
 class Employee (Person):
     """
@@ -56,7 +57,8 @@ class Employee (Person):
         :return: the string representation of an Employee
         :rtype: str
         """
-        return f"Employee(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', mail='{self.mail}', type='{self.type}')"
+        return f"Employee(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', " \
+               f"mail='{self.mail}', type='{self.type}')"
     
     def __eq__(self, other: object) -> bool:
         """
@@ -74,6 +76,7 @@ class Employee (Person):
             self.phone == other.phone and \
             self.mail == other.mail and \
             self.type == other.type
+
 
 if __name__ == '__main__':
     em1 = Employee(1, 'name1', 'last_name1', 'phone1', 'mail1', 'type1')

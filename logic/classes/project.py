@@ -1,10 +1,11 @@
 import json
-from client import Client
-from equipment import Equipment
-from schedule import Schedule
-from payroll import Payroll
-from employee import Employee
-from gadget import Gadget
+from logic.classes.client import Client
+from logic.classes.equipment import Equipment
+from logic.classes.schedule import Schedule
+from logic.classes.payroll import Payroll
+from logic.classes.employee import Employee
+from logic.classes.gadget import Gadget
+
 
 class Project (object):
     """
@@ -183,7 +184,9 @@ class Project (object):
         :return: a string containing the Project
         :rtype: str
         """
-        return f"Project(id={self.id}, name='{self.name}', client={str(self.client)}, description='{self.description}', equipment={str(self.equipment)}, schedule={str(self.schedule)}, payroll={str(self.payroll)})"
+        return f"Project(id={self.id}, name='{self.name}', client={str(self.client)}, " \
+               f"description='{self.description}', equipment={str(self.equipment)}, schedule={str(self.schedule)}, " \
+               f"payroll={str(self.payroll)})"
     
     def __eq__(self, other: object) -> bool:
         """
@@ -202,13 +205,10 @@ class Project (object):
             self.__equipment == other.equipment and \
             self.__schedule == other.schedule and \
             self.__payroll == other.payroll
-    
+
+
 if __name__ == "__main__":
-    client = Client(1,
-                "Jesu",
-                "last_name",
-                "phone",
-                "mail")
+    client = Client(1, "Jesu", "last_name", "phone", "mail")
     
     gadget1 = Gadget(1, 'gadget1', 'type1', 'state1')
     gadget2 = Gadget(2, 'gadget2', 'type2', 'state2')
@@ -216,23 +216,13 @@ if __name__ == "__main__":
 
     equipment = Equipment([gadget1, gadget2, gadget3])
 
-    schedule = Schedule(1,
-                "start_date",
-                "finish_date",
-                "state")
+    schedule = Schedule(1, "start_date", "finish_date", "state")
     
     em1 = Employee(1, "Juan", "Perez", "12345678", "juan@perez.com", "constructor")
     em2 = Employee(2, "Pedro", "Gomez", "87654321", "pedro@gomez.com", "constructor")
 
     payroll = Payroll([em1, em2])
 
-    project = Project(1,
-                "Construction House",
-                client,
-                "description",
-                equipment,
-                schedule,
-                payroll)
+    project = Project(1, "Construction House", client, "description", equipment, schedule, payroll)
     
     print(project.__str__())
-

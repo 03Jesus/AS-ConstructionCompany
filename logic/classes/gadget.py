@@ -1,8 +1,9 @@
 import json
 
+
 class Gadget (object):
     """
-    A class that represents an Gadget
+    A class that represents a Gadget
     """
 
     def __init__(self,
@@ -102,8 +103,8 @@ class Gadget (object):
 
     def __str__(self) -> str:
         """
-        Returns the string representation of an Gadget
-        :return: the string representation of an Gadget
+        Returns the string representation of a Gadget
+        :return: the string representation of a Gadget
         :rtype: str
         """
         return f"Gadget(id={self.id}, name='{self.name}', type='{self.type}' state='{self.state}')"
@@ -120,6 +121,7 @@ class Gadget (object):
             self.name == other.name and \
             self.state == other.state \
             and self.type == other.type
+
 
 if __name__ == '__main__':
     gadget1 = Gadget(1, 'gadget1', 'type1', 'state1')

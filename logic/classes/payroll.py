@@ -1,4 +1,5 @@
-from employee import Employee
+from logic.classes.employee import Employee
+
 
 class Payroll (object):
     """
@@ -63,8 +64,7 @@ class Payroll (object):
         for employee in self.employees:
             employees_str += str(employee) + "\n"
         return f"Payroll(employees=[\n{employees_str}])"
-    
-    
+
     def __eq__(self, other: object) -> bool:
         """
         Checks if two Payrolls are equal
@@ -76,7 +76,8 @@ class Payroll (object):
         if isinstance(other, Payroll):
             return self.employees == other.employees
         return False
-    
+
+
 if __name__ == "__main__":
     em1 = Employee(1, "Juan", "Perez", "12345678", "juan@perez.com", "constructor")
     em2 = Employee(2, "Pedro", "Gomez", "87654321", "pedro@gomez.com", "constructor")
