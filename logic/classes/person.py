@@ -1,7 +1,8 @@
 import json
+from logic.classes.component import Component
 
 
-class Person (object):
+class Person (Component):
     """
     A class that represents a Person
     """
@@ -126,14 +127,20 @@ class Person (object):
         """
         self.__mail = mail
 
+    def get_name(self) -> str:
+        return self.name
+
+    def show_details(self, depth: int) -> None:
+        prefix = "  " * depth
+        print(f"{prefix}Person(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', mail='{self.mail}')")
+
     def __str__(self) -> str:
         """
         String representation of the Person
         :return: the string representation of the Person
         :rtype: str
         """
-        return f"Person(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', " \
-               f"mail='{self.mail}')"
+        return f"Person(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', mail='{self.mail}')"
 
     def __eq__(self, other: object) -> bool:
         """

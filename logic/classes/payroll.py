@@ -1,58 +1,116 @@
+from typing import List
+
+from logic.classes.component import Component
 from logic.classes.employee import Employee
+from logic.classes.list_component import ListComponent
 
 
-class Payroll (object):
+class Payroll (ListComponent):
     """
-    A class that represents a Payroll (list of employees)
+    A class that represents a Payroll (a list of employees)
     """
 
-    def __init__(self, employees=None) -> object:
+    def __init__(self,
+                 id: int = 0,
+                 name: str = "name",
+                 employees: List[Employee] = None) -> ListComponent:
         """
-        Constructor of the class
-        :param employees: the list of employees
-        :type employees: list
+        Constructor for the Payroll class
+        :param id: the id of the Payroll
+        :type id: int
+        :param employees: the list of employees of the Payroll
+        :type employees: List[Employee]
         """
+        self.__id = id
+        self.__name = name
         if employees is None:
             self.__employees = []
         else:
             self.__employees = employees
 
     @property
-    def employees(self) -> list:
+    def id(self) -> int:
         """
-        Getter for the list of employees
-        :return: the list of employees
-        :rtype: list
+        Getter for the id of the Payroll
+        :return: the id of the Payroll
+        :rtype: int
+        """
+        return self.__id
+
+    @id.setter
+    def id(self, id: int) -> None:
+        """
+        Setter for the id of the Payroll
+        :param id: the new id of the Payroll
+        :type id: int
+        :return: None
+        """
+        self.__id = id
+
+    @property
+    def name(self) -> str:
+        """
+        Getter for the name of the Payroll
+        :return: the name of the Payroll
+        :rtype: str
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, name: str) -> None:
+        """
+        Setter for the name of the Payroll
+        :param name: the new name of the Payroll
+        :type name: str
+        :return: None
+        """
+        self.__name = name
+
+    @property
+    def employees(self) -> List[Employee]:
+        """
+        Getter for the employees of the Payroll
+        :return: the employees of the Payroll
+        :rtype: List[Employee]
         """
         return self.__employees
-    
+
     @employees.setter
-    def employees(self, employees: list) -> None:
+    def employees(self, employees: List[Employee]) -> None:
         """
-        Setter for the list of employees
-        :param employees: the new list of employees
-        :type employees: list
+        Setter for the employees of the Payroll
+        :param employees: the new employees of the Payroll
+        :type employees: List[Employee]
         :return: None
         """
         self.__employees = employees
 
-    def add_employee(self, employee: Employee) -> None:
+    def add_child(self, child: Employee) -> None:
         """
-        Adds an employee to the list of employees
-        :param employee: the employee to add
-        :type employee: Employee
+        Adds a child to the Payroll
+        :param child: the child to add
+        :type child: Employee
         :return: None
         """
-        self.employees.append(employee)
+        self.employees.append(child)
 
-    def remove_employee(self, employee: Employee) -> None:
+    def remove_child(self, child: Employee) -> None:
         """
-        Removes an employee from the list of employees
-        :param employee: the employee to remove
-        :type employee: Employee
+        Removes a child from the Payroll
+        :param child: the child to remove
+        :type child: Employee
         :return: None
         """
-        self.employees.remove(employee)
+        self.employees.remove(child)
+
+    def get_name(self) -> str:
+        return self.name
+
+    def show_details(self, depth: int) -> None:
+        prefix = "  " * depth
+        print(f"{prefix}Payroll(id={self.id}, name='{self.name}')")
+        for employee in self.employees:
+            employee.show_details(depth + 1)
 
     def __str__(self) -> str:
         """
@@ -60,10 +118,7 @@ class Payroll (object):
         :return: the string representation of a Payroll
         :rtype: str
         """
-        employees_str = ""
-        for employee in self.employees:
-            employees_str += str(employee) + "\n"
-        return f"Payroll(employees=[\n{employees_str}])"
+        return f"Payroll(id={self.id}, name='{self.name}')"
 
     def __eq__(self, other: object) -> bool:
         """
@@ -74,27 +129,12 @@ class Payroll (object):
         :rtype: bool
         """
         if isinstance(other, Payroll):
-            return self.employees == other.employees
+            return self.id == other.id
         return False
 
 
 if __name__ == "__main__":
-    em1 = Employee(1, "Juan", "Perez", "12345678", "juan@perez.com", "constructor")
-    em2 = Employee(2, "Pedro", "Gomez", "87654321", "pedro@gomez.com", "constructor")
-    
-    payroll = Payroll([em1, em2])
-
-    print(payroll)
-
-    payroll.add_employee(Employee(3, "Maria", "Lopez", "12345678", "maria@lopez.com", "constructor"))
-
-    print(payroll)
-
-    payroll.remove_employee(em1)
-
-    print(payroll)
-
-    if payroll == Payroll([em2, Employee(3, "Maria", "Lopez", "12345678", "maria@lopez.com", "constructor")]):
-        print("payroll == payroll2")
-    else:
-        print("payroll != payroll2")
+    payroll = Payroll(1, 'name')
+    payroll2 = Payroll(2, 'Payroll2')
+    payroll.show_details(0)
+    print(payroll == payroll2)

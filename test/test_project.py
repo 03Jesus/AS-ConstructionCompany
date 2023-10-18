@@ -1,4 +1,7 @@
 import unittest
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from logic.classes.project import Project
 from logic.classes.client import Client
 from logic.classes.equipment import Equipment
@@ -33,22 +36,18 @@ class TestProject(unittest.TestCase):
         em2 = Employee(2, "Pedro", "Gomez", "87654321", "pedro@gomez.com", "constructor")
 
         payroll = Payroll([em1, em2])
+        
+        children = [client, equipment, schedule, payroll]
 
         project = Project(1,
                           "Construction House",
-                          client,
                           "description",
-                          equipment,
-                          schedule,
-                          payroll)
+                          children)
 
         self.assertEqual(project.id, 1)
         self.assertEqual(project.name, "Construction House")
-        self.assertEqual(project.client, client)
         self.assertEqual(project.description, "description")
-        self.assertEqual(project.equipment, equipment)
-        self.assertEqual(project.schedule, schedule)
-        self.assertEqual(project.payroll, payroll)
+        self.assertEqual(project.children, children)
 
     def test_eq(self):
 
@@ -73,22 +72,18 @@ class TestProject(unittest.TestCase):
         em2 = Employee(2, "Pedro", "Gomez", "87654321", "pedro@gomez.com", "constructor")
 
         payroll = Payroll([em1, em2])
+        
+        children = [client, equipment, schedule, payroll]
 
         project1 = Project(1,
                            "Construction House",
-                           client,
                            "description",
-                           equipment,
-                           schedule,
-                           payroll)
+                           children)
 
         project2 = Project(1,
                            "Construction House",
-                           client,
                            "description",
-                           equipment,
-                           schedule,
-                           payroll)
+                           children)
 
         self.assertEqual(project1, project2)
 

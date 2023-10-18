@@ -1,4 +1,8 @@
-import json
+from datetime import date
+from typing import List
+
+from logic.classes.component import Component
+from logic.classes.list_component import ListComponent
 from logic.classes.client import Client
 from logic.classes.equipment import Equipment
 from logic.classes.schedule import Schedule
@@ -7,7 +11,7 @@ from logic.classes.employee import Employee
 from logic.classes.gadget import Gadget
 
 
-class Project (object):
+class Project (ListComponent):
     """
     A class that represents a Project
     """
@@ -15,35 +19,26 @@ class Project (object):
     def __init__(self,
                  id: int = 0,
                  name: str = 'name',
-                 client: Client = Client(),
                  description: str = 'description',
-                 equipment: Equipment = Equipment(),
-                 schedule: Schedule = Schedule(),
-                 payroll: Payroll = Payroll()) -> object:
+                 children: List[Component] = None) -> ListComponent:
         """
-        Constructor of the class
+        Constructor for the Project class
         :param id: the id of the Project
         :type id: int
         :param name: the name of the Project
         :type name: str
-        :param client: the client of the Project
-        :type client: Client
         :param description: the description of the Project
         :type description: str
-        :param equipment: the equipment of the Project
-        :type equipment: Equipment
-        :param schedule: the schedule of the Project
-        :type schedule: Schedule
-        :param payroll: the payroll of the Project
-        :type payroll: Payroll
+        :param children: the list of children of the Project
+        :type children: List[Component]
         """
         self.__id = id
         self.__name = name
-        self.__client = client
         self.__description = description
-        self.__equipment = equipment
-        self.__schedule = schedule
-        self.__payroll = payroll
+        if children is None:
+            self.__children = []
+        else:
+            self.__children = children
 
     @property
     def id(self) -> int:
@@ -53,7 +48,7 @@ class Project (object):
         :rtype: int
         """
         return self.__id
-    
+
     @id.setter
     def id(self, id: int) -> None:
         """
@@ -72,7 +67,7 @@ class Project (object):
         :rtype: str
         """
         return self.__name
-    
+
     @name.setter
     def name(self, name: str) -> None:
         """
@@ -84,25 +79,6 @@ class Project (object):
         self.__name = name
 
     @property
-    def client(self) -> Client:
-        """
-        Getter for the client of the Project
-        :return: the client of the Project
-        :rtype: Client
-        """
-        return self.__client
-    
-    @client.setter
-    def client(self, client: Client) -> None:
-        """
-        Setter for the client of the Project
-        :param client: the new client of the Project
-        :type client: Client
-        :return: None
-        """
-        self.__client = client
-
-    @property
     def description(self) -> str:
         """
         Getter for the description of the Project
@@ -110,7 +86,7 @@ class Project (object):
         :rtype: str
         """
         return self.__description
-    
+
     @description.setter
     def description(self, description: str) -> None:
         """
@@ -122,72 +98,65 @@ class Project (object):
         self.__description = description
 
     @property
-    def equipment(self) -> Equipment:
+    def children(self) -> List[Component]:
         """
-        Getter for the equipment of the Project
-        :return: the equipment of the Project
-        :rtype: Equipment
+        Getter for the children of the Project
+        :return: the children of the Project
+        :rtype: List[Component]
         """
-        return self.__equipment
-    
-    @equipment.setter
-    def equipment(self, equipment: Equipment) -> None:
-        """
-        Setter for the equipment of the Project
-        :param equipment: the new equipment of the Project
-        :type equipment: Equipment
-        :return: None
-        """
-        self.__equipment = equipment
+        return self.__children
 
-    @property
-    def schedule(self) -> Schedule:
+    @children.setter
+    def children(self, children: List[Component]) -> None:
         """
-        Getter for the schedule of the Project
-        :return: the schedule of the Project
-        :rtype: Schedule
-        """
-        return self.__schedule
-    
-    @schedule.setter
-    def schedule(self, schedule: Schedule) -> None:
-        """
-        Setter for the schedule of the Project
-        :param schedule: the new schedule of the Project
-        :type schedule: Schedule
+        Setter for the children of the Project
+        :param children: the new children of the Project
+        :type children: List[Component]
         :return: None
         """
-        self.__schedule = schedule
+        self.__children = children
 
-    @property
-    def payroll(self) -> Payroll:
+    def add_child(self, child: Component) -> None:
         """
-        Getter for the payroll of the Project
-        :return: the payroll of the Project
-        :rtype: Payroll
-        """
-        return self.__payroll
-    
-    @payroll.setter
-    def payroll(self, payroll: Payroll) -> None:
-        """
-        Setter for the payroll of the Project
-        :param payroll: the new payroll of the Project
-        :type payroll: Payroll
+        Method that adds a child to the Project
+        :param child: the child to be added
+        :type child: Component
         :return: None
         """
-        self.__payroll = payroll
-        
+        self.children.append(child)
+
+    def remove_child(self, child: Component) -> None:
+        """
+        Method that removes a child from the Project
+        :param child: the child to be removed
+        :type child: Component
+        :return: None
+        """
+        self.children.remove(child)
+
+    def get_name(self) -> str:
+        return self.name
+
+    def show_details(self, depth: int) -> None:
+        """
+        Method that prints the details of the Project
+        :param depth: the depth of the Project in the tree
+        :type depth: int
+        :return: None
+        """
+        prefix = "  " * depth
+        print(f"{prefix}Project: {self.name}")
+        for child in self.children:
+            child.show_details(depth + 1)
+
     def __str__(self) -> str:
         """
         String representation of the Project
         :return: a string containing the Project
         :rtype: str
         """
-        return f"Project(id={self.id}, name='{self.name}', client={str(self.client)}, " \
-               f"description='{self.description}', equipment={str(self.equipment)}, schedule={str(self.schedule)}, " \
-               f"payroll={str(self.payroll)})"
-    
+        return f"Project(id={self.id}, name='{self.name}', client={str(self.client)}, description='{self.description}', equipment={str(self.equipment.show_details())}, schedule={str(self.schedule)}, payroll={str(self.payroll.show_details())})"
+
     def __eq__(self, other: object) -> bool:
         """
         Method that checks if two Projects are equal
@@ -200,29 +169,36 @@ class Project (object):
             return False
         return self.__id == other.id and \
             self.__name == other.name and \
-            self.__client == other.client and \
             self.__description == other.description and \
-            self.__equipment == other.equipment and \
-            self.__schedule == other.schedule and \
-            self.__payroll == other.payroll
+            self.__children == other.children
 
 
 if __name__ == "__main__":
-    client = Client(1, "Jesu", "last_name", "phone", "mail")
-    
-    gadget1 = Gadget(1, 'gadget1', 'type1', 'state1')
-    gadget2 = Gadget(2, 'gadget2', 'type2', 'state2')
-    gadget3 = Gadget(3, 'gadget3', 'type3', 'state3')
 
-    equipment = Equipment([gadget1, gadget2, gadget3])
+    client1 = Client(1, 'John', 'Doe', '1234567890', 'john.doe@example.com')
+    client2 = Client(2, 'Jane', 'Smith', '9876543210',
+                     'jane.smith@example.com')
+    client3 = Client(3, 'Michael', 'Johnson', '5555555555',
+                     'michael.johnson@example.com')
 
-    schedule = Schedule(1, "start_date", "finish_date", "state")
-    
-    em1 = Employee(1, "Juan", "Perez", "12345678", "juan@perez.com", "constructor")
-    em2 = Employee(2, "Pedro", "Gomez", "87654321", "pedro@gomez.com", "constructor")
+    gadget1 = Gadget(1, 'Hammer', 'Hand Tool', 'Available')
+    gadget2 = Gadget(2, 'Screwdriver', 'Hand Tool', 'Available')
+    gadget3 = Gadget(3, 'Drill', 'Power Tool', 'Available')
 
-    payroll = Payroll([em1, em2])
+    equipmet1 = Equipment(1, 'Equipment 1', [gadget1, gadget2])
+    equipmet2 = Equipment(2, 'Equipment 2', [gadget3])
 
-    project = Project(1, "Construction House", client, "description", equipment, schedule, payroll)
-    
-    print(project.__str__())
+    schedule1 = Schedule(1, date(2020, 1, 1), date(2020, 1, 2), 'To Do')
+    schedule2 = Schedule(2, date(2020, 2, 3), date(2021, 5, 3), 'In Progress')
+
+    employee1 = Employee(1, 'John', 'Doe', '1234567890',
+                         'john.doe@example.com', 'Constructor')
+    employee2 = Employee(2, 'Jane', 'Smith', '9876543210',
+                         'jane.smith@example.com', 'Constructor')
+
+    paryoll1 = Payroll(1, 'Payroll 1', [employee1, employee2])
+
+    project1 = Project(1, 'Project 1', 'Description 1', [
+                       client1, equipmet1, schedule1, paryoll1])
+
+    project1.show_details(0)

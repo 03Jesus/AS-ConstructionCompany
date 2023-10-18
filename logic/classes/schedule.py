@@ -1,10 +1,10 @@
-import json
+from logic.classes.component import Component
 from datetime import date
 
 
-class Schedule (object):
+class Schedule (Component):
     """
-    A class that represents a Schedule
+    A class that represents an Schedule
     """
 
     def __init__(self,
@@ -16,9 +16,9 @@ class Schedule (object):
         Constructor of the class
         :param id: the id of the Schedule
         :type id: int
-        :param start_date: the start date of the Schedule
+        :param start_date: the start_date of the Schedule
         :type start_date: date
-        :param finish_date: the finish date of the Schedule
+        :param finish_date: the finish_date of the Schedule
         :type finish_date: date
         :param state: the state of the Schedule
         :type state: str
@@ -36,7 +36,7 @@ class Schedule (object):
         :rtype: int
         """
         return self.__id
-    
+
     @id.setter
     def id(self, id: int) -> None:
         """
@@ -50,17 +50,17 @@ class Schedule (object):
     @property
     def start_date(self) -> date:
         """
-        Getter for the start date of the Schedule
-        :return: the start date of the Schedule
+        Getter for the start_date of the Schedule
+        :return: the start_date of the Schedule
         :rtype: date
         """
         return self.__start_date
-    
+
     @start_date.setter
     def start_date(self, start_date: date) -> None:
         """
-        Setter for the start date of the Schedule
-        :param start_date: the new start date of the Schedule
+        Setter for the start_date of the Schedule
+        :param start_date: the new start_date of the Schedule
         :type start_date: date
         :return: None
         """
@@ -69,17 +69,17 @@ class Schedule (object):
     @property
     def finish_date(self) -> date:
         """
-        Getter for the finish date of the Schedule
-        :return: the finish date of the Schedule
+        Getter for the finish_date of the Schedule
+        :return: the finish_date of the Schedule
         :rtype: date
         """
         return self.__finish_date
-    
+
     @finish_date.setter
     def finish_date(self, finish_date: date) -> None:
         """
-        Setter for the finish date of the Schedule
-        :param finish_date: the new finish date of the Schedule
+        Setter for the finish_date of the Schedule
+        :param finish_date: the new finish_date of the Schedule
         :type finish_date: date
         :return: None
         """
@@ -93,7 +93,7 @@ class Schedule (object):
         :rtype: str
         """
         return self.__state
-    
+
     @state.setter
     def state(self, state: str) -> None:
         """
@@ -104,38 +104,40 @@ class Schedule (object):
         """
         self.__state = state
 
+    def get_name(self) -> str:
+        return str(self.id)
+
+    def show_details(self, depth: int) -> None:
+        prefix = "  " * depth
+        print(f"{prefix}Schedule(id={self.id}, start_date='{self.start_date}', finish_date='{self.finish_date}' state='{self.state}')")
+
     def __str__(self) -> str:
-        """
-        Returns the string representation of a Schedule
-        :return: the string representation of a Schedule
-        :rtype: str
-        """
         return f"Schedule(id={self.id}, start_date='{self.start_date}', finish_date='{self.finish_date}', state='{self.state}')"
-    
+
     def __eq__(self, other: object) -> bool:
-        """
-        Method that compares two Schedules
-        :param other: the other Schedule
-        :type other: object
-        :return: True if the Schedules are equal, False otherwise
-        :rtype: bool
-        """
         if not isinstance(other, Schedule):
             return False
-        return self.__id == other.id and \
-               self.__start_date == other.start_date and \
-               self.__finish_date == other.finish_date and \
-               self.__state == other.state
+        return self.id == other.id and self.start_date == other.start_date and self.finish_date == other.finish_date and self.state == other.state
 
 
 if __name__ == "__main__":
-    schedule = Schedule(1, date.today(), date.today(), 'state')
-    print(schedule)
-    print(schedule.id)
-    print(schedule.start_date)
-    print(schedule.finish_date)
-    print(schedule.state)
-    print(schedule == Schedule(1, date.today(), date.today(), 'state'))
-    print(schedule == Schedule(2, date.today(), date.today(), 'state'))
-    print(schedule == Schedule(1, date.today(), date.today(), 'state2'))
-
+    s1 = Schedule(1, date(2020, 1, 1), date(2020, 1, 2), 'state1')
+    s2 = Schedule(1, date(2020, 1, 1), date(2020, 1, 2), 'state1')
+    s3 = Schedule(2, date(2020, 1, 1), date(2020, 1, 2), 'state1')
+    s4 = Schedule(1, date(2020, 1, 3), date(2020, 1, 2), 'state1')
+    s5 = Schedule(1, date(2020, 1, 1), date(2020, 1, 3), 'state1')
+    s6 = Schedule(1, date(2020, 1, 1), date(2020, 1, 2), 'state2')
+    s1.show_details(0)
+    s3.get_name()
+    print(s3)
+    print(s4)
+    print(s5)
+    print(s6)
+    print(s1 == s2)
+    print(s1 == s3)
+    print(s1 == s4)
+    print(s1 == s5)
+    print(s1 == s6)
+    print(s1 == 1)
+    print(s1 == 'abc')
+    print(s1 == None)

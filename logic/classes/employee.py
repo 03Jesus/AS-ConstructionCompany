@@ -51,15 +51,21 @@ class Employee (Person):
         """
         self.__type = type
 
+    def get_name(self) -> str:
+        return self.name
+
+    def show_details(self, depth: int) -> None:
+        prefix = "  " * depth
+        print(f"{prefix}Employee(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', mail='{self.mail}', type='{self.type}')")
+
     def __str__(self) -> str:
         """
         Returns the string representation of an Employee
         :return: the string representation of an Employee
         :rtype: str
         """
-        return f"Employee(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', " \
-               f"mail='{self.mail}', type='{self.type}')"
-    
+        return f"Employee(id={self.id}, name='{self.name}', last_name='{self.last_name}', phone='{self.phone}', mail='{self.mail}', type='{self.type}')"
+
     def __eq__(self, other: object) -> bool:
         """
         Checks if two Employees are equal

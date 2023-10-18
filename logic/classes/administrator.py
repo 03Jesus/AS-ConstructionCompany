@@ -1,7 +1,6 @@
 import json
 from logic.classes.person import Person
 
-
 class Administrator (Person):
     """
     A class that represents an Administrator
@@ -20,7 +19,7 @@ class Administrator (Person):
         :param name: the name of the Administrator
         :type name: str
         :param last_name: the last name of the Administrator
-        :type last name: str
+        :type last_name: str
         :param phone: the phone of the Administrator
         :type phone: str
         :param mail: the mail of the Administrator

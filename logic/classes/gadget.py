@@ -1,9 +1,10 @@
 import json
+from logic.classes.component import Component
 
 
-class Gadget (object):
+class Gadget (Component):
     """
-    A class that represents a Gadget
+    A class that represents an Gadget
     """
 
     def __init__(self,
@@ -33,7 +34,7 @@ class Gadget (object):
         :rtype: int
         """
         return self.__id
-    
+
     @id.setter
     def id(self, id: int) -> None:
         """
@@ -52,7 +53,7 @@ class Gadget (object):
         :rtype: str
         """
         return self.__name
-    
+
     @name.setter
     def name(self, name: str) -> None:
         """
@@ -71,7 +72,7 @@ class Gadget (object):
         :rtype: str
         """
         return self.__state
-    
+
     @state.setter
     def state(self, state: str) -> None:
         """
@@ -90,7 +91,7 @@ class Gadget (object):
         :rtype: str
         """
         return self.__type
-    
+
     @type.setter
     def type(self, type: str) -> None:
         """
@@ -101,14 +102,22 @@ class Gadget (object):
         """
         self.__type = type
 
+    def get_name(self) -> str:
+        return self.name
+
+    def show_details(self, depth: int) -> None:
+        prefix = "  " * depth
+        print(
+            f"{prefix}Gadget(id={self.id}, name='{self.name}', type='{self.type}' state='{self.state}')")
+
     def __str__(self) -> str:
         """
-        Returns the string representation of a Gadget
-        :return: the string representation of a Gadget
+        Returns the string representation of an Gadget
+        :return: the string representation of an Gadget
         :rtype: str
         """
         return f"Gadget(id={self.id}, name='{self.name}', type='{self.type}' state='{self.state}')"
-    
+
     def __eq__(self, other) -> bool:
         """
         Returns True if the Gadgets are equal, False otherwise
@@ -129,8 +138,6 @@ if __name__ == '__main__':
     gadget3 = Gadget(3, 'gadget3', 'type1', 'state3')
 
     assert gadget1.id == 1
-
-    print(json.dumps(gadget1.__str__()))
 
     if gadget1 == gadget2:
         print('gadget1 == gadget2')

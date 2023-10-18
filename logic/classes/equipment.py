@@ -1,60 +1,116 @@
-import json
+from typing import List
+
+from logic.classes.component import Component
+from logic.classes.list_component import ListComponent
 from logic.classes.gadget import Gadget
 
 
-class Equipment (object):
+class Equipment (ListComponent):
     """
-    A class that represents an Equipment (a list of gadgets)
+    A class that represents an Equipment (A list of gadgets)
     """
 
     def __init__(self,
-                 gadgets=None) -> object:
+                 id: int = 0,
+                 name: str = "name",
+                 gadgets: List[Gadget] = None) -> ListComponent:
         """
-        Constructor of the class
-        :param gadgets: the list of gadgets
-        :type gadgets: list
+        Constructor for the Equipment class
+        :param id: the id of the Equipment
+        :type id: int
+        :param gadgets: the list of gadgets of the Equipment
+        :type gadgets: List[Gadget]
         """
+        self.__id = id
+        self.__name = name
         if gadgets is None:
             self.__gadgets = []
         else:
             self.__gadgets = gadgets
 
     @property
-    def gadgets(self) -> list:
+    def id(self) -> int:
         """
-        Getter for the list of gadgets
-        :return: the list of gadgets
-        :rtype: list
+        Getter for the id of the Equipment
+        :return: the id of the Equipment
+        :rtype: int
+        """
+        return self.__id
+
+    @id.setter
+    def id(self, id: int) -> None:
+        """
+        Setter for the id of the Equipment
+        :param id: the new id of the Equipment
+        :type id: int
+        :return: None
+        """
+        self.__id = id
+
+    @property
+    def name(self) -> str:
+        """
+        Getter for the name of the Equipment
+        :return: the name of the Equipment
+        :rtype: str
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, name: str) -> None:
+        """
+        Setter for the name of the Equipment
+        :param name: the new name of the Equipment
+        :type name: str
+        :return: None
+        """
+        self.__name = name
+
+    @property
+    def gadgets(self) -> List[Gadget]:
+        """
+        Getter for the gadgets of the Equipment
+        :return: the gadgets of the Equipment
+        :rtype: List[Gadget]
         """
         return self.__gadgets
-    
+
     @gadgets.setter
-    def gadgets(self, gadgets: list) -> None:
+    def gadgets(self, gadgets: List[Gadget]) -> None:
         """
-        Setter for the list of gadgets
-        :param gadgets: the new list of gadgets
-        :type gadgets: list
+        Setter for the gadgets of the Equipment
+        :param gadgets: the new gadgets of the Equipment
+        :type gadgets: List[Gadget]
         :return: None
         """
         self.__gadgets = gadgets
 
-    def add_gadget(self, gadget: Gadget) -> None:
+    def add_child(self, child: Gadget) -> None:
         """
-        Adds a gadget to the list of gadgets
-        :param gadget: the gadget to add
-        :type gadget: Gadget
+        Adds a new gadget to the Equipment
+        :param child: the new gadget
+        :type child: Gadget
         :return: None
         """
-        self.gadgets.append(gadget)
+        self.__gadgets.append(child)
 
-    def remove_gadget(self, gadget: Gadget) -> None:
+    def remove_child(self, child: Gadget) -> None:
         """
-        Removes a gadget from the list of gadgets
-        :param gadget: the gadget to remove
-        :type gadget: Gadget
+        Removes a gadget from the Equipment
+        :param child: the gadget to remove
+        :type child: Gadget
         :return: None
         """
-        self.gadgets.remove(gadget)
+        self.__gadgets.remove(child)
+
+    def get_name(self) -> str:
+        return self.name
+
+    def show_details(self, depth: int) -> None:
+        prefix = "  " * depth
+        print(f"{prefix}Equipment: {self.name}")
+        for gadget in self.gadgets:
+            gadget.show_details(depth + 1)
 
     def __str__(self) -> str:
         """
@@ -62,33 +118,26 @@ class Equipment (object):
         :return: the string representation of an Equipment
         :rtype: str
         """
-        gadgets_str = ""
-        for gadget in self.gadgets:
-            gadgets_str += gadget.__str__() + "\n"
-        return gadgets_str
-    
-    def __eq__(self, other) -> bool:
+        return f"Equipment(id={self.id}, name='{self.name}', gadgets={self.gadgets})"
+
+    def __eq__(self, other: object) -> bool:
         """
-        Checks if two Equipment objects are equal
+        Compares two Equipment objects
         :param other: the other Equipment object
-        :type other: Equipment
-        :return: True if the objects are equal, False otherwise
+        :type other: object
+        :return: True if both Equipment objects are the same, False otherwise
         :rtype: bool
         """
         if isinstance(other, Equipment):
-            return self.gadgets == other.gadgets
+            return self.id == other.id and self.name == other.name and self.gadgets == other.gadgets
         return False
 
 
-if __name__ == '__main__':
-    gadget1 = Gadget(1, 'gadget1', 'type1', 'state1')
-    gadget2 = Gadget(2, 'gadget2', 'type2', 'state2')
-    gadget3 = Gadget(3, 'gadget3', 'type3', 'state3')
+if __name__ == "__main__":
 
-    equipment = Equipment([gadget1, gadget2, gadget3])
+    gadget1 = Gadget(1, 'Hammer', 'Hand Tool', 'Available')
+    gadget2 = Gadget(2, 'Screwdriver', 'Hand Tool', 'Available')
+    gadget3 = Gadget(3, 'Drill', 'Power Tool', 'Available')
 
-    print(equipment)
-
-    equipment.remove_gadget(gadget2)
-
-    print(equipment)
+    equipment = Equipment(1, "equipment 1", [gadget1, gadget2])
+    equipment.show_details(0)

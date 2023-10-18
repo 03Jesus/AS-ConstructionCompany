@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  constructioncompany:
+    image: constructioncompany-image:1.7
+    build: .
+    container_name: constructioncompany-app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app

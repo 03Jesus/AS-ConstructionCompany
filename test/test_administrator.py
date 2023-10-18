@@ -1,6 +1,8 @@
 import unittest
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from logic.classes.administrator import Administrator
-
 
 class TestAdministrator(unittest.TestCase):
 
@@ -26,7 +28,8 @@ class TestAdministrator(unittest.TestCase):
 
         administrator1 = Administrator(1, 'name', 'last_name', 'phone', 'mail')
         administrator2 = Administrator(1, 'name', 'last_name', 'phone', 'mail')
-        administrator3 = Administrator(2, 'name2', 'last_name2', 'phone2', 'mail2')
+        administrator3 = Administrator(
+            2, 'name2', 'last_name2', 'phone2', 'mail2')
 
         self.assertEqual(administrator1, administrator2)
         self.assertNotEqual(administrator1, administrator3)
