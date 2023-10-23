@@ -21,7 +21,7 @@ class TestClient(unittest.TestCase):
 
         client = Client(1, 'name', 'last_name', 'phone', 'mail')
 
-        expected_str = f"Client(id=1, name='name', last_name='last_name', phone='phone', mail='mail')"
+        expected_str = "Client(id=1, name='name', last_name='last_name', phone='phone', mail='mail')"
 
         self.assertEqual(client.__str__(), expected_str)
 
