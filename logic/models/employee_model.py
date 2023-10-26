@@ -1,6 +1,7 @@
-from typing import Optional
+from typing import Optional, List
 
 from logic.models.person_model import PersonModel
+from logic.models.schedule_model import ScheduleModel
 
 
 class EmployeeModel (PersonModel):
@@ -13,13 +14,14 @@ class EmployeeModel (PersonModel):
 class EmployeeModelResponse (PersonModel):
     id: int
     type: str
+    schedules: List[ScheduleModel]
 
     class Config:
         from_attributes = True
 
 
 class EmployeeUpdateModel (PersonModel):
-    type: Optional[str]
+    type: Optional[str] = None
 
     class Config:
         from_attributes = True

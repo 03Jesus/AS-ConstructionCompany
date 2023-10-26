@@ -7,6 +7,7 @@ class GadgetModel (BaseModel):
     name: str
     type: str
     state: str
+    schedule_id: Optional[int] = None
 
     class Config:
         from_attributes = True
@@ -17,15 +18,17 @@ class GadgetModelResponse (BaseModel):
     name: str
     type: str
     state: str
+    schedule_id: Optional[int] = None
 
     class Config:
         from_attributes = True
 
 
 class GadgetUpdateModel (BaseModel):
-    name: Optional[str]
-    type: Optional[str]
-    state: Optional[str]
+    name: Optional[str] = None
+    type: Optional[str] = None
+    state: Optional[str] = None
+    schedule_id: Optional[int] = None
 
     class Config:
         from_attributes = True

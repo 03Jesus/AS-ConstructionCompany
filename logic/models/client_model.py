@@ -7,7 +7,7 @@ class ClientModel (PersonModel):
         from_attributes = True
 
 
-class ClientModelRespone (PersonModel):
+class ClientModelResponse (PersonModel):
     id: int
 
     class Config:
